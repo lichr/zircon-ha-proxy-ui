@@ -1,7 +1,12 @@
 import _ from 'lodash';
+import { PageConfigProvider, PageCoreProvider } from './services';
 
 export function App(): JSX.Element {
   return (
-    <div>Hello</div>
+    <PageConfigProvider url="page.json">
+      <PageCoreProvider>
+        <div>Hello</div>
+      </PageCoreProvider>
+    </PageConfigProvider>
   );
 }

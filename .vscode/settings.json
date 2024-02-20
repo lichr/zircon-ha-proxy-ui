@@ -1,0 +1,122 @@
+{
+  "rest-client.certificates": {
+    "dev.zircon.run": {
+        "pfx": "assets/certs/dev.p12"
+    }
+  },
+  "editor.tabSize": 2,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.validate.enable": true,
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules"
+  ],
+  "todo-tree.general.tags": ["DOING", "TODO", "XXX", "NOTE", "PATTERN", "REF", "TIP", "OBSOLETE", "TAG", "HACK"],
+  // Web Colors: https://en.wikipedia.org/wiki/Web_colors
+  // Octicons: https://primer.style/octicons/
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "foreground": "white",
+      "background": "SeaGreen",
+      "icon": "check-circle",
+      "iconColour": "SeaGreen"
+    },
+    "DOING": {
+      "foreground": "white",
+      "background": "DodgerBlue",
+      "icon": "play",
+      "iconColour": "DodgerBlue",
+      "gutterIcon": true
+    },    
+    "XXX": {
+      "foreground": "white",
+      "background": "Tomato",
+      "icon": "x-circle",
+      "iconColour": "Tomato",
+      "gutterIcon": true
+    },
+    "REF": {
+      "foreground": "white",
+      "background": "Tomato",
+      "icon": "report",
+      "iconColour": "Tomato",
+      "gutterIcon": true
+    },
+    "TAG": {
+      "foreground": "white",
+      "background": "DodgerBlue",
+      "icon": "tag",
+      "iconColour": "DodgerBlue",
+      "gutterIcon": true
+    },
+    "NOTE": {
+      "foreground": "white",
+      "background": "DodgerBlue",
+      "icon": "info",
+      "iconColour": "DodgerBlue",
+      "gutterIcon": true
+    },
+    "PATTERN": {
+      "foreground": "white",
+      "background": "DodgerBlue",
+      "icon": "star-fill",
+      "iconColour": "DodgerBlue",
+      "gutterIcon": true
+    },
+    "OBSOLETE": {
+      "foreground": "white",
+      "background": "Tomato",
+      "icon": "trash",
+      "iconColour": "Tomato"
+    },
+    "TIP": {
+      "foreground": "white",
+      "background": "Tomato",
+      "icon": "north-star",
+      "iconColour": "Tomato",
+      "gutterIcon": true
+    },
+    "HACK": {
+      "foreground": "white",
+      "background": "Tomato",
+      "icon": "tools",
+      "iconColour": "Tomato",
+      "gutterIcon": true
+    }
+  },
+  "cSpell.words": [
+    "cbox",
+    "clearcoat",
+    "cqmin",
+    "denoise",
+    "drei",
+    "frameloop",
+    "glsl",
+    "hbox",
+    "homeassistant",
+    "immer",
+    "isolines",
+    "Lightformer",
+    "linewidth",
+    "luxon",
+    "metalness",
+    "Raycast",
+    "Raycaster",
+    "raycasters",
+    "SMAA",
+    "SSAO",
+    "syncpack",
+    "vdnl",
+    "vdnp",
+    "Viewcube",
+    "wbox",
+    "whitesmoke",
+    "Zrotate",
+    "zustand"
+  ],
+  "remote.autoForwardPorts": false,
+  "glsl-canvas.refreshOnChange": false,
+  "glsl-canvas.useCompactFormatter": false,
+  "glsl-canvas.installOnExport": false,
+  "glsl-canvas.antialias": true
+}

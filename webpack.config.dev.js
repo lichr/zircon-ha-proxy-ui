@@ -12,8 +12,8 @@ config.devServer = {
       directory: path.join(__dirname, 'static')
     },
     {
-      directory: path.join(__dirname, 'config'),
-      publicPath: '/config'
+      directory: path.join(__dirname, 'assets/page.json'),
+      publicPath: '/page.json'
     }
   ],
   host: '0.0.0.0',
