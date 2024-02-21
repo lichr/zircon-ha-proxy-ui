@@ -1,13 +1,8 @@
 {
-  "rest-client.certificates": {
-    "dev.zircon.run": {
-        "pfx": "assets/certs/dev.p12"
-    }
-  },
   "editor.tabSize": 2,
   "javascript.preferences.quoteStyle": "single",
   "typescript.preferences.quoteStyle": "single",
-  "typescript.validate.enable": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
   "todo-tree.filtering.excludeGlobs": [
     "**/node_modules"
   ],
@@ -113,10 +108,5 @@
     "whitesmoke",
     "Zrotate",
     "zustand"
-  ],
-  "remote.autoForwardPorts": false,
-  "glsl-canvas.refreshOnChange": false,
-  "glsl-canvas.useCompactFormatter": false,
-  "glsl-canvas.installOnExport": false,
-  "glsl-canvas.antialias": true
+  ]
 }

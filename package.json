@@ -31,8 +31,7 @@
     "nanoid": "^5.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "use-immer": "^0.9.0",
-    "zustand": "^4.4.2"
+    "use-immer": "^0.9.0"
   },
   "devDependencies": {
     "@types/jest": "^29.1.1",

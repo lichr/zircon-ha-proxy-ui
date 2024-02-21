@@ -1,11 +1,10 @@
 root: true
 extends:
-  - plugin:@typescript-eslint/recommended
   - eslint:recommended
   - plugin:import/recommended
   - plugin:react/recommended
   - plugin:react-hooks/recommended
-  - ./.eslintrc.base.yml
+  - plugin:@typescript-eslint/recommended
 
 parser: '@typescript-eslint/parser'
 
