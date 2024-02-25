@@ -13,18 +13,17 @@ export class PageCore {
   ) {
     this.config = config;
     this.state = {
+      currentTab: 'project',
+      currentPanel: 'project',
+      dialog: null,
       panels: {
-        currentPanel: 'project',
-        dialog: null,
-        panels: {
-          project: {},
-          help: {}
-        }
+        project: {},
+        help: {}
       }
     };
   }
 
-  update(updater: Updater ) {
+  update(updater: Updater) {
     const next = produce(this.state, updater);
     const old = this.state;
     if (next !== old) {

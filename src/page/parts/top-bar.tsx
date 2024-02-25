@@ -1,6 +1,6 @@
 import { usePageState } from '../../services';
 import { hbox, border } from '../../ui';
-import { TopBarTab } from './top-bar-tap';
+import { TopBarTab } from './top-bar-tab';
 import { ZirconLogo } from './zircon-logo';
 
 export function TopBar(
@@ -9,7 +9,7 @@ export function TopBar(
   }
 ): JSX.Element {
   const { className } = props;
-  const currentPanel = usePageState((state) => state.panels.currentPanel);
+  const currentTab = usePageState((state) => state.currentTab);
 
   return (
     <div
@@ -38,8 +38,8 @@ export function TopBar(
           <div css={{ color: '#2196f3', fontSize: '20px' }}>Zircon3D</div>
         </div>
       </div>
-      <TopBarTab id="project" title="Project" current={currentPanel === 'project'} />
-      <TopBarTab id="help" title="Help" current={currentPanel === 'help'} />
+      <TopBarTab id="project" title="Project" current={currentTab === 'project'} />
+      <TopBarTab id="help" title="Help" current={currentTab === 'help'} />
       <div css={{ flex: '1 1 auto',  borderBottom: border }} />
     </div>
   );

@@ -33,7 +33,7 @@ export function TopBarTab(
       ]}
       className={className}
       onClick={() => {
-        core.update((state) => { state.panels.currentPanel = id; });
+        core.update((state) => { state.currentPanel = id; });
       }}
     >
       {title}

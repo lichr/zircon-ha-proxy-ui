@@ -13,6 +13,20 @@ export const hbox: any = {
   justifyContent: 'flex-start'
 };
 
+export const row: any = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start'
+};
+
+export const center: any = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
+
 export const cbox: any = {
   display: 'flex',
   flexDirection: 'row',
@@ -45,4 +59,13 @@ export const mono: any = {
 export const p: any = {
   ...font,
   fontSize: '14px'
+}
+
+export const click: any = {
+  cursor: 'pointer',
+  backgroundColor: 'white',
+  userSelect: 'none',
+  '&:hover': {
+    backgroundColor: '#f6f6f6'
+  }
 }

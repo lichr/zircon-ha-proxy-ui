@@ -21,13 +21,12 @@ export interface IProjectPanel {
 }
 
 export interface IPageState {
+  dialog: IDialog | null;
+  currentTab: string;
+  currentPanel: string;
   panels: {
-    currentPanel: string;
-    dialog: IDialog | null;
-    panels: {
-      project: any;
-      help: any;
-    }
+    project: any;
+    help: any;
   }
 }
 
