@@ -1,3 +1,16 @@
+export type ApiInvokeStatus = 'stop' | 'start' | 'pending' | 'ok' | 'error';
+
+export interface IApiState<T=any,R=any> {
+  data: T | null;
+  result: R | null;
+  status: ApiInvokeStatus;
+  error: any;
+}
+export interface IApiInvoke<T=any,R=any, F=()=>void> {
+  start: F;
+  state: IApiState<T,R>;
+}
+
 export interface IOfflineConfig {
   activeBundle: string | null;
   bundles: Record<string, any>;
@@ -29,4 +42,3 @@ export interface IPageState {
     help: any;
   }
 }
-
