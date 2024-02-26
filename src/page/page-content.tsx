@@ -1,4 +1,4 @@
-import { font, p, vbox } from '../ui';
+import { hbox, p, vbox } from '../ui';
 import { DialogContainer } from './dialog-container';
 import { PanelContainer } from './panel-container';
 import { TopBar } from './parts/top-bar';
@@ -18,8 +18,26 @@ export function PageContent(): JSX.Element {
     >
       {/* <TopBar css={{}}/> */}
       <DialogContainer />
-      <div css={{ overflow: 'auto' }}>
-        <PanelContainer />
+      <div
+        css={[
+          vbox,
+          {
+            alignItems: 'center',
+            overflow: 'auto'
+          }
+        ]}
+      >
+        <div
+          css={[
+            hbox,
+            {
+              width: '100%',
+              maxWidth: '1200px'
+            }
+          ]}
+        >
+          <PanelContainer />
+        </div>
       </div>
     </div>
   );

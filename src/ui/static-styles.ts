@@ -66,6 +66,6 @@ export const click: any = {
   backgroundColor: 'white',
   userSelect: 'none',
   '&:hover': {
-    backgroundColor: '#f6f6f6'
+    backgroundColor: '#2196f311'
   }
 }

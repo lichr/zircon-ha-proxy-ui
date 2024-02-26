@@ -1,7 +1,11 @@
-import { PanelBase, SideSection, hbox, vbox } from '../../ui';
+import { useTheme } from '@mui/material';
+import { P, PanelBase, SideSection, hbox, vbox } from '../../ui';
+import { ZirconLogoWithTitle } from '../parts';
 import { UserSection } from './sections';
 
 export function ProjectPanel(): JSX.Element {
+  const theme = useTheme();
+  const color = theme.palette.primary.main;
 
   return (
     <PanelBase css={{ padding: '24px 17px' }}>
@@ -12,7 +16,7 @@ export function ProjectPanel(): JSX.Element {
           css={[
             vbox,
             {
-              flex: '1 1 auto',
+              flex: '2 2 auto',
               gap: '4px'
             }
           ]}
@@ -23,23 +27,29 @@ export function ProjectPanel(): JSX.Element {
           css={[
             vbox,
             {
-              display: 'none',
-              flex: '0 0 200px',
+              flex: '0 1 260px',
               padding: '16px 0 0 0',
               gap: '16px'
             }
           ]}
         >
-          <SideSection type="tips" title="Tips">
+          <div css={{ padding: '0 0 8px 0', borderBottom: `solid 1px ${color}` }}>
+            <ZirconLogoWithTitle />
+          </div>
+          <SideSection type="news" title="Beta2">
+            <P>Zircon3D Beta2 has been released.</P>
           </SideSection>
-          <SideSection type="news" title="News">
+          <SideSection type="tips" title="Embed into HA Dashboard" image="https://static.zircon.app/zircon3d.embed.png">
+            <P>Zircon3D viewers can be embedded into your home assistant dashboard, using web page card.</P>
+          </SideSection>
+          {/* <SideSection type="news" title="News">
           </SideSection>
           <SideSection type="error" title="Error">
           </SideSection>
           <SideSection type="warning" title="Warning">
           </SideSection>
           <SideSection type="info" title="Info">
-          </SideSection>
+          </SideSection> */}
         </div>
       </div>
     </PanelBase>

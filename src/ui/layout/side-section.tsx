@@ -28,16 +28,17 @@ export function SideSection(
   props: {
     type: SideSectionType;
     title: string;
+    image?: string;
     children?: React.ReactNode;
   }
 ): JSX.Element {
-  const { type, title, children } = props;
+  const { type, title, image, children } = props;
 
   let icon = null;
   if (type === 'news') {
     icon = <SectionIcon icon={BullhornOutline} color="#2196f3" />;
   } else if (type === 'tips') {
-    icon = <SectionIcon icon={LightbulbOnOutline} color="#4caf50" />;
+    icon = <SectionIcon icon={LightbulbOnOutline} color="#2196f3" />;
   } else if (type === 'error') {
     icon = <SectionIcon icon={CloseCircle} color="#f44336" />;
   } else if (type === 'warning') {
@@ -61,7 +62,15 @@ export function SideSection(
     >
       <div css={{ gridArea: 'icon', alignSelf:'center' }}>{icon}</div>
       <div css={{ gridArea: 'title', alignSelf: 'center', fontWeight: 'bold' }}>{title}</div>
-      <div css={[vbox, { gridArea: 'children' }]}>
+      <div css={[vbox, { gridArea: 'children', gap: '8px' }]}>
+        {
+          image && (
+            <img
+              src={image}
+              css={{ width: '75%', height: 'auto' }}
+            />
+          )
+        }
         {children}
       </div>
     </div>

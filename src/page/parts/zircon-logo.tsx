@@ -34,3 +34,22 @@ export function ZirconLogo(
 
   );
 }
+
+export function ZirconLogoWithTitle(
+  props: {
+    size?: string;
+    color?: string;
+    className?: string;
+  }
+) {
+  const { size, color, className } = props;
+  const sz = size ?? '20px';
+  const cl = color ?? '#2196f3';
+
+  return (
+    <div css={{ display: 'flex', alignItems: 'center', gap: '8px' }} className={className}>
+      <ZirconLogo size={sz} strokeColor={cl} />
+      <div css={{ color: cl, fontSize: sz }}>Zircon3D</div>
+    </div>
+  );
+}
