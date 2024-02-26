@@ -1,6 +1,8 @@
 import { Button, useTheme } from '@mui/material';
+import ChevronDown from 'mdi-material-ui/ChevronDown';
+import ChevronRight from 'mdi-material-ui/ChevronRight';
 import { useState } from 'react';
-import { vbox } from '../static-styles';
+import { center, click, vbox } from '../static-styles';
 import { Row } from './row';
 
 export function PanelSection(
@@ -14,6 +16,7 @@ export function PanelSection(
   const [expanded, setExpanded] = useState(true);
   const theme = useTheme();
   const color = theme.palette.primary.main;
+  const Icon = expanded ? ChevronDown : ChevronRight;
 
   return (
     <div
@@ -25,17 +28,28 @@ export function PanelSection(
         }
       ]}
     >
-      <Row>
+      <Row css={{ gap: '8px' }}>
+        <div
+          css={[
+            center,
+            click,
+            {
+              width: '28px',
+              height: '28px'
+            }
+          ]}
+          onClick={() => setExpanded(!expanded)}
+        >
+          <Icon css={{ color, fontSize: '24px' }} />
+        </div>
         <div
           css={{
-            fontSize: '20px'
+            fontSize: '18px',
+            userSelect: 'none'
           }}
         >
           {title}
         </div>
-        <Button size="small" onClick={() => setExpanded(!expanded)}>
-          {expanded ? 'Collapse' : 'Expand'}
-        </Button>
       </Row>
       {
         expanded && (
@@ -43,7 +57,7 @@ export function PanelSection(
             css={[
               vbox,
               {
-                padding: '0 0 24px 0',
+                padding: '0 0 16px 36px',
                 gap: '24px'
               }
             ]}

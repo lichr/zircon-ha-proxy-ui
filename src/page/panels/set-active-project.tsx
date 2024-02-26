@@ -2,7 +2,7 @@ import { Button, CircularProgress, useTheme } from '@mui/material';
 import CheckCircle from 'mdi-material-ui/CheckCircle';
 import { Fragment, useEffect } from 'react';
 import { ApiStatus, useApiGet, useApiPut, usePageCore } from '../../services';
-import { P, PanelBase, PanelSection, Row, Section, Table, click, hbox, mono } from '../../ui';
+import { ActionLink, P, PanelBase, PanelSection, Row, Section, Table, click, hbox, mono } from '../../ui';
 
 function SetActiveButton(
   props: {
@@ -26,7 +26,7 @@ function SetActiveButton(
 
   if (status === 'error') {
     return (
-      <div css={{ color: '#f00' }}>
+      <div css={{ color: '#f00', fontSize: '12px' }}>
         Error: {error?.message}
       </div>
     );
@@ -37,17 +37,7 @@ function SetActiveButton(
     );
   }
   return (
-    <div
-      css={[
-        click,
-        {
-          color
-        }
-      ]}
-      onClick={() => start(data)}
-    >
-      Set Active
-    </div>
+    <ActionLink title="Set Active" onClick={() => start(data)} />
   );
 }
 
@@ -61,11 +51,12 @@ export function SetActiveProject(): JSX.Element {
   if (result) {
     content = (
       <Table
+        css={{ alignItems: 'center' }}
         columns={[
-          { label: 'Group Id', width: '120px' },
-          { label: 'Id', width: '120px' },
+          { label: 'Group Id', width: '110px' },
+          { label: 'Id', width: '121px' },
           { label: 'Name', width: '200px' },
-          { label: 'Branches', width: '200px' },
+          { label: 'Branches', width: '110px' },
           { label: 'Active?', width: 'auto' }
         ]}
       >
@@ -73,12 +64,12 @@ export function SetActiveProject(): JSX.Element {
           result.map(
             (project: any) => (
               <Fragment key={project.projectId}>
-                <div css={mono}>{project.groupId}</div>
-                <div css={mono}>{project.projectId}</div>
-                <div css={{ fontWeight: 'bold' }}>{project.name}</div>
+                <div css={[mono, { fontSize: '12px' }]}>{project.groupId}</div>
+                <div css={[mono, { fontSize: '12px' }]}>{project.projectId}</div>
+                <div css={{ fontSize: '12px', fontWeight: 'bold' }}>{project.name}</div>
                 <div css={[hbox, { gap: '8px' }]}>
-                  {project.onlineBranch ? <div>Online</div> : null}
-                  {project.localBranch ? <div>Local</div> : null}
+                  {project.onlineBranch ? <div css={{ fontSize: '12px' }}>Online</div> : null}
+                  {project.localBranch ? <div css={{ fontSize: '12px' }}>Local</div> : null}
                 </div>
                 <Row>
                   {

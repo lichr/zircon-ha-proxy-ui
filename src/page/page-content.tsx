@@ -16,7 +16,7 @@ export function PageContent(): JSX.Element {
         }
       ]}
     >
-      <TopBar css={{}}/>
+      {/* <TopBar css={{}}/> */}
       <DialogContainer />
       <div css={{ overflow: 'auto' }}>
         <PanelContainer />

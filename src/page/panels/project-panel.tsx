@@ -1,62 +1,46 @@
-import CheckCircle from 'mdi-material-ui/CheckCircle';
-import CloudOutline from 'mdi-material-ui/CloudOutline';
-import Harddisk from 'mdi-material-ui/Harddisk';
-import { usePageCore } from '../../services';
-import { B, NaviCard, P, PanelBase, PanelSection, Section, vbox } from '../../ui';
+import { PanelBase, SideSection, hbox, vbox } from '../../ui';
+import { UserSection } from './sections';
 
 export function ProjectPanel(): JSX.Element {
-  const core = usePageCore();
 
   return (
-    <PanelBase>
+    <PanelBase css={{ padding: '24px 17px' }}>
       <div
-        css={[
-          vbox,
-          {
-            flex: '1 1 auto',
-            gap: '32px'
-          }
-        ]}
+        css={[hbox]}
       >
-        <Section title="Set Active Project">
-          <div>
-            <P>You can create multiple projects.</P>
-            <P>Only one project can be actively served by this proxy.</P>
-          </div>
-          <NaviCard
-            icon={CheckCircle}
-            title="My Awesome Project"
-            onClick={
-              () => core.update((state) => { state.currentPanel = 'set-active-project' })
+        <div
+          css={[
+            vbox,
+            {
+              flex: '1 1 auto',
+              gap: '4px'
             }
-          >
-            <P>Project data is stored in cloud data store</P>
-          </NaviCard>
-        </Section>
-        <Section title="Work with Branches">
-          <div css={vbox}>
-            <P>A <B>Branch</B> is a copy of your home plan data</P>
-            <P>You can choose where to store a branch, <B>online store</B>, <B>local store</B> or <B>both</B></P>
-          </div>
-          <NaviCard
-            icon={CloudOutline}
-            title="Online Branch"
-            onClick={
-              () => core.update((state) => { state.currentPanel = 'online-branch' })
+          ]}
+        >
+          <UserSection />
+        </div>
+        <div
+          css={[
+            vbox,
+            {
+              display: 'none',
+              flex: '0 0 200px',
+              padding: '16px 0 0 0',
+              gap: '16px'
             }
-          >
-            <P>Project data is stored in cloud data store</P>
-          </NaviCard>
-          <NaviCard
-            icon={Harddisk}
-            title="Local Branch"
-            onClick={
-              () => core.update((state) => { state.currentPanel = 'local-branch' })
-            }
-          >
-            <P>Project data is stored in local data store</P>
-          </NaviCard>
-        </Section>
+          ]}
+        >
+          <SideSection type="tips" title="Tips">
+          </SideSection>
+          <SideSection type="news" title="News">
+          </SideSection>
+          <SideSection type="error" title="Error">
+          </SideSection>
+          <SideSection type="warning" title="Warning">
+          </SideSection>
+          <SideSection type="info" title="Info">
+          </SideSection>
+        </div>
       </div>
     </PanelBase>
   );
