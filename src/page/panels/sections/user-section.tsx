@@ -1,58 +1,102 @@
 import { Avatar, useTheme } from '@mui/material';
 import _ from 'lodash';
-import { ApiStatus, IUserInfo, useApiGet } from '../../../services';
-import { ActionLink, B, FeatureSection, P, PanelSection, Row, SG } from '../../../ui';
+import { useEffect } from 'react';
+import { ApiStatus, IUserInfo, useApiGet, usePageCore } from '../../../services';
+import { ActionLink, B, FeatureSection, Link, P, Row, SG } from '../../../ui';
 import { ProjectSection } from './project-section';
 
 export function UserSection(): JSX.Element {
   const { state: { status, error, result: userInfo } } = useApiGet<IUserInfo>('user_info');
   const theme = useTheme();
   const color = theme.palette.primary.main;
+  const core = usePageCore();
 
+  let userPart = null;
+  let tokenPart = null;
+  let ni = '?';
+  let photoURL = undefined;
+
+  // set user-info to core-state so that components can respond to its change
+  useEffect(
+    () => {
+      core.update((state) => { state.userInfo = userInfo; });
+    },
+    [core, userInfo]
+  )
 
   if (userInfo) {
-    const { displayName, email, photoURL, tokenId } = userInfo;
-    // name initials
-    const ni = displayName ? _.map(_.split(displayName, ' '), s => _.upperCase(s[0])).join('') : '?';
-    return (
-      <>
-        <FeatureSection
-          side={
-            <Avatar
-              sx={{
-                backgroundColor: color
-              }}
-              src={photoURL ?? undefined}
-            >{ni}</Avatar>
-          }
-          title="User Info"
-        >
-          <SG>
-            <Row css={{ gap: '36px' }}>
-              <P>
-                <B>User:</B> {displayName}
-              </P>
-              <P>
-                <B>Email:</B> {email}
-              </P>
-            </Row>
+    const { user, tokenId } = userInfo;
+    if (tokenId) {
+      tokenPart = (
+        <P>
+          <B>Access Token: </B> {`${tokenId}.******`}
+          <ActionLink go css={{ margin: '0 8px' }} title="Update" onClick={() => { }} />
+        </P>
+      );
+    } else {
+      tokenPart = (
+        <>
+          <P>
+            <B>No Access Token</B>
+            <ActionLink go css={{ margin: '0 8px' }} title="Set" onClick={() => { }} />
+          </P>
+          <P>
+            You can create an access token from&nbsp;
+            <Link external href="https://zircon3d.com/user/profile#access-tokens">user profile</Link>
+          </P>
+        </>
+      );
+    }
+
+    if (user) {
+      const { displayName, email } = user;
+      photoURL = user.photoURL;
+      // name initials
+      ni = displayName ? _.map(_.split(displayName, ' '), s => _.upperCase(s[0])).join('') : '?';
+      userPart = (
+        <>
+          <Row css={{ gap: '36px' }}>
             <P>
-              <B>Access Token: </B> {`${tokenId}.******`}
-              <ActionLink go css={{ margin: '0 8px' }} title="Update" onClick={() => { }} />
+              <B>User:</B> {displayName}
             </P>
-          </SG>
-        </FeatureSection>
-        <ProjectSection />
-      </>
-    );
-  } else {
-    return (
-      <PanelSection title="User Info">
-        <ApiStatus status={status} error={error} />
+            <P>
+              <B>Email:</B> {email}
+            </P>
+          </Row>
+          <P>
+            <B>Access Token: </B> {`${tokenId}.******`}
+            <ActionLink go css={{ margin: '0 8px' }} title="Update" onClick={() => { }} />
+          </P>
+        </>
+      )
+    } else {
+      userPart = (
         <P>
           No user info.
         </P>
-      </PanelSection>
-    );
+      );
+    }
   }
+  return (
+    <>
+      <FeatureSection
+        side={
+          <Avatar
+            sx={{
+              backgroundColor: color
+            }}
+            src={photoURL ?? undefined}
+          >{ni}</Avatar>
+        }
+        title="User Info"
+      >
+        <ApiStatus status={status} error={error} hideError />
+        <SG>
+          {userPart}
+          {tokenPart}
+        </SG>
+      </FeatureSection>
+      <ProjectSection />
+    </>
+  );
 }

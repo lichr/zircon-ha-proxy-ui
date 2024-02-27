@@ -1,25 +1,26 @@
 import { useTheme } from '@mui/material';
 import MenuRight from 'mdi-material-ui/MenuRight';
 import OpenInNew from 'mdi-material-ui/OpenInNew';
-import { click } from '../static-styles';
+import { click, clickDisabled } from '../static-styles';
 
 export function ActionLink(
   props: {
     title: string;
+    disabled?: boolean;
     external?: boolean;
     go?: boolean;
     className?: string;
     onClick?: () => void;
   }
 ): JSX.Element {
-  const { title, go: dialog, external, className, onClick } = props;
+  const { title, go: dialog, external, disabled, className, onClick } = props;
   const theme = useTheme();
-  const color = theme.palette.primary.main;
+  const color = disabled ? '#666' : theme.palette.primary.main;
 
   return (
     <div
       css={[
-        click,
+        disabled ? clickDisabled : click,
         {
           display: 'inline-flex',
           alignItems: 'center',
@@ -37,7 +38,7 @@ export function ActionLink(
         }
       ]}
       className={className}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
     >
       {title}
       {

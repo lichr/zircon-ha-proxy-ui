@@ -69,3 +69,8 @@ export const click: any = {
     backgroundColor: '#2196f311'
   }
 }
+
+export const clickDisabled: any = {
+  backgroundColor: 'white',
+  userSelect: 'none'
+}

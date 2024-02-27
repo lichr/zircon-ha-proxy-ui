@@ -1,39 +1,40 @@
-import { Button, useTheme } from '@mui/material';
 import { DateTime } from 'luxon';
 import CloudOutline from 'mdi-material-ui/CloudOutline';
 import Harddisk from 'mdi-material-ui/Harddisk';
+import Help from 'mdi-material-ui/Help';
 import { ApiStatus, IProjectInfo, useApiGet, usePageCore } from '../../../services';
-import { ActionLink, B, FeatureSection, P, PanelSection, Row, SG, Section, center, hbox, vbox } from '../../../ui';
+import { ActionLink, B, FeatureSection, More, P, Row, SG } from '../../../ui';
 import { DesignerSection } from './designer-section';
 import { ViewersSection } from './viewers-sections';
 
 export function ProjectSection(): JSX.Element {
-  const theme = useTheme();
-  const color = theme.palette.primary.main;
   const core = usePageCore();
   const { state: { status, error, result: projectInfo } } = useApiGet<IProjectInfo>('active_project_info');
 
+  let projectPart = null;
+  let Icon = Help;
+  let next = null;
+
   if (projectInfo) {
     const { groupId, projectId, onlineBranch, localBranch, name, updateTime } = projectInfo;
-    return (
+    Icon = onlineBranch ? CloudOutline : Harddisk;
+    projectPart = (
       <>
-        <FeatureSection
-          icon={onlineBranch ? CloudOutline : Harddisk}
-          title="Project"
-        >
+        <SG>
           <P>
-            <ActionLink
-              go
-              title="Change Active Project"
-              onClick={
-                () => core.update((state) => { state.currentPanel = 'set-active-project' })
-              }
-            />
+            <B>Name:</B> {name}
           </P>
-          <SG>
+          <Row css={{ gap: '36px' }}>
             <P>
-              <B>Name:</B> {name}
+              <B>Online Branch:</B> {onlineBranch ? 'YES' : 'NO'}
+              <ActionLink go css={{ margin: '0 12px' }} title="Delete" />
             </P>
+            <P>
+              <B>Local Branch:</B> {localBranch ? 'YES' : 'NO'}
+              <ActionLink go css={{ margin: '0 12px' }} title="Pull" />
+            </P>
+          </Row>
+          <More>
             <Row css={{ gap: '36px' }}>
               <P>
                 <B>Group ID:</B> {groupId}
@@ -43,43 +44,45 @@ export function ProjectSection(): JSX.Element {
               </P>
             </Row>
             <P>
-              <B>Online Branch:</B> {onlineBranch ? 'YES' : 'NO'}
-              <ActionLink go css={{ margin: '0 12px' }} title="Delete" />
-            </P>
-            <P>
-              <B>Local Branch:</B> {localBranch ? 'YES' : 'NO'}
-              <ActionLink go css={{ margin: '0 12px' }} title="Pull" />
-            </P>
-            <P>
               <B>Update Time:</B> {updateTime ? DateTime.fromISO(updateTime).toLocaleString(DateTime.DATETIME_MED) : ''}
             </P>
-          </SG>
-
-        </FeatureSection>
-
+          </More>
+        </SG>
+      </>
+    );
+    next = (
+      <>
         <DesignerSection projectInfo={projectInfo} />
         <ViewersSection projectInfo={projectInfo} />
       </>
     );
   } else {
-    return (
-      <FeatureSection title="Active Project">
-        <ApiStatus status={status} error={error} />
-        <P>
-          No active project.
-        </P>
+    projectPart = (
+      <P>
+        No active project.
+      </P>
+    );
+  }
+
+  return (
+    <>
+      <FeatureSection
+        icon={Icon}
+        title="Active Project"
+      >
+        <ApiStatus status={status} error={error} hideError />
         <Row>
-          <Button
-            variant='outlined'
-            size='small'
+          <ActionLink
+            go
+            title="Change Active Project"
             onClick={
               () => core.update((state) => { state.currentPanel = 'set-active-project' })
             }
-          >
-            Set Active Project
-          </Button>
+          />
         </Row>
+        {projectPart}
       </FeatureSection>
-    )
-  }
+      {next}
+    </>
+  );
 }

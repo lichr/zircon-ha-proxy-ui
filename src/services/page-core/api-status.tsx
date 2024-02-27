@@ -4,6 +4,7 @@ import { ApiInvokeStatus } from './types';
 export function ApiStatus(
   props: {
     status: ApiInvokeStatus;
+    hideError?: boolean;
     error?: any;
     className?: string;
   }
@@ -13,7 +14,7 @@ export function ApiStatus(
     return (
       <CircularProgress variant="indeterminate" />
     )
-  } else if (props.status === 'error') {
+  } else if (props.status === 'error' && !props.hideError) {
     return (
       <div css={{ color }}>
         Error: {props.error?.message}

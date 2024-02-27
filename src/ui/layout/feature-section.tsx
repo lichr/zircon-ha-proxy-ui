@@ -29,7 +29,7 @@ export function FeatureSection(
             }
           </div>
         </div>
-        <div css={[vbox, { gap: '12px' }]}>
+        <div css={[vbox, { gap: '6px' }]}>
           {children}
         </div>
       </div>

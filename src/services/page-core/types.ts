@@ -1,3 +1,5 @@
+import { IUserInfo } from '../types';
+
 export type ApiInvokeStatus = 'stop' | 'start' | 'pending' | 'ok' | 'error';
 
 export interface IApiState<T=any,R=any> {
@@ -34,6 +36,7 @@ export interface IProjectPanel {
 }
 
 export interface IPageState {
+  userInfo: IUserInfo | null;
   dialog: IDialog | null;
   currentTab: string;
   currentPanel: string;

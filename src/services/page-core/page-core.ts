@@ -13,6 +13,7 @@ export class PageCore {
   ) {
     this.config = config;
     this.state = {
+      userInfo: null,
       currentTab: 'project',
       currentPanel: 'project',
       dialog: null,

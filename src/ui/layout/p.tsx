@@ -52,7 +52,7 @@ export function SG(
       css={[
         vbox,
         {
-          gap: '4px'
+          gap: '2px'
         }
       ]}
     >
