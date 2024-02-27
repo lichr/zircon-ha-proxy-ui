@@ -26,11 +26,19 @@ export function UserSection(): JSX.Element {
 
   if (userInfo) {
     const { user, tokenId } = userInfo;
+    const handleUpdateToken = () => {
+      core.update((state) => { state.currentPanel = 'set-access-token'; });
+    }
     if (tokenId) {
       tokenPart = (
         <P>
           <B>Access Token: </B> {`${tokenId}.******`}
-          <ActionLink go css={{ margin: '0 8px' }} title="Update" onClick={() => { }} />
+          <ActionLink
+            go
+            css={{ margin: '0 8px' }}
+            title="Update"
+            onClick={handleUpdateToken}
+          />
         </P>
       );
     } else {
@@ -38,7 +46,12 @@ export function UserSection(): JSX.Element {
         <>
           <P>
             <B>No Access Token</B>
-            <ActionLink go css={{ margin: '0 8px' }} title="Set" onClick={() => { }} />
+            <ActionLink
+              go
+              css={{ margin: '0 8px' }}
+              title="Set"
+              onClick={handleUpdateToken}
+            />
           </P>
           <P>
             You can create an access token from&nbsp;
@@ -63,10 +76,6 @@ export function UserSection(): JSX.Element {
               <B>Email:</B> {email}
             </P>
           </Row>
-          <P>
-            <B>Access Token: </B> {`${tokenId}.******`}
-            <ActionLink go css={{ margin: '0 8px' }} title="Update" onClick={() => { }} />
-          </P>
         </>
       )
     } else {

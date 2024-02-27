@@ -18,21 +18,32 @@ export function FeatureSection(
   const color = theme.palette.primary.main;
 
   return (
-    <PanelSection className={className} title={title}>
-      <div css={[hbox, { gap: '24px' }]}>
-        <div css={[vbox, { flex: '0 0 40px', alignItems: 'center' }]}>
-          <div css={[center, { width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#2196f322' }]}>
-            {
-              side ?? (
-                Icon && <Icon css={{ color, fontSize: '28px' }} />
-              )
-            }
-          </div>
-        </div>
-        <div css={[vbox, { gap: '6px' }]}>
-          {children}
-        </div>
+    <div
+      className={className}
+      css={{
+        display: 'grid',
+        gridTemplateColumns: 'auto 1fr',
+        gridTemplateRows: 'auto auto',
+        gridTemplateAreas: `
+          "icon title"
+          "icon children"
+        `,
+        gap: '8px 16px'
+      }}
+    >
+      <div css={{ gridArea: 'title', fontSize: '20px' }}>
+        {title}
       </div>
-    </PanelSection>
+      <div css={[center, { gridArea: 'icon', width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#2196f322' }]}>
+        {
+          side ?? (
+            Icon && <Icon css={{ color, fontSize: '28px' }} />
+          )
+        }
+      </div>
+      <div css={[vbox, { gridArea: 'children', gap: '6px' }]}>
+        {children}
+      </div>
+    </div>
   );
 }

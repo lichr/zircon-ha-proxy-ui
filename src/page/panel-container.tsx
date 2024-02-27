@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { usePageState } from '../services';
-import { LocalBranch, OnlineBranch, ProjectPanel, SetActiveProject } from './panels';
+import { LocalBranch, OnlineBranch, ProjectPanel, SetAccessToken, SetActiveProject } from './panels';
 
 export function PanelContainer(): ReactElement | null {
   const currentPanel = usePageState(state => state.currentPanel);
@@ -12,6 +12,8 @@ export function PanelContainer(): ReactElement | null {
     return (<LocalBranch />);
   } else if (currentPanel === 'set-active-project') {
     return (<SetActiveProject />);
+  } else if (currentPanel === 'set-access-token') {
+    return (<SetAccessToken />);
   }
   return null;
 }
