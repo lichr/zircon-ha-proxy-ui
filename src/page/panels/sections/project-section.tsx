@@ -74,9 +74,16 @@ export function ProjectSection(): JSX.Element {
         <Row>
           <ActionLink
             go
-            title="Change Active Project"
+            title="Choose Active Project"
             onClick={
               () => core.update((state) => { state.currentPanel = 'set-active-project' })
+            }
+          />
+          <ActionLink
+            go
+            title="Create New Project"
+            onClick={
+              () => core.update((state) => { state.currentPanel = 'create-project' })
             }
           />
         </Row>

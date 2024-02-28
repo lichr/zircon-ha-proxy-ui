@@ -43,7 +43,7 @@ export function ZirconLogoWithTitle(
   }
 ) {
   const { size, color, className } = props;
-  const sz = size ?? '20px';
+  const sz = size ?? '22px';
   const cl = color ?? '#2196f3';
 
   return (

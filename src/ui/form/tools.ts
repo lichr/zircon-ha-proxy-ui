@@ -8,12 +8,12 @@ import {
   RegisterOptions
 } from 'react-hook-form';
 
-export type FormRules = Omit<
-  RegisterOptions<FieldValues, FieldPath<FieldValues>>,
-  'valueAsNumber' |
-  'valueAsDate' |
-  'setValueAs' |
-  'disabled'
+export type FormRules<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = Omit<
+  RegisterOptions<TFieldValues, TName>,
+  'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
 >;
 
 function parseNumber(s: any): number  {
@@ -58,7 +58,7 @@ export function showError(name: string, error?: FieldError, rules?: FormRules): 
   }
 }
 
-export function textFields(
+export function textControl(
   name: string,
   field: ControllerRenderProps<any, any>,
   fieldState:  ControllerFieldState,
@@ -71,6 +71,21 @@ export function textFields(
     onChange: field.onChange,
     error: !_.isNil(fieldState.error),
     helperText: showError(name, fieldState.error, rules),
+    onBlur: field.onBlur,
+    inputRef: field.ref
+  };
+}
+
+
+export function switchControl(
+  name: string,
+  field: ControllerRenderProps<any, any>
+) {
+  return {
+    id: _.snakeCase(name),
+    label: _.startCase(name),
+    checked: field.value,
+    onChange: field.onChange,
     onBlur: field.onBlur,
     inputRef: field.ref
   };

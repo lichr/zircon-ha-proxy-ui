@@ -97,13 +97,22 @@ export function SetActiveProject(): JSX.Element {
 
   return (
     <PanelBase
-      title="Set Active Project"
+      title="Choose Active Project"
       onReturn={
         () => core.update((state) => { state.currentPanel = 'project' })
       }
     >
       <div css={{ padding: '0 0 16px 0' }}>
-        <P>Choose active project</P>
+        <P>Choose active project, or you can &nbsp;
+          <ActionLink
+            go
+            title="Create New Project"
+            onClick={
+              () => core.update((state) => { state.currentPanel = 'create-project' })
+            }
+          />
+        </P>
+
       </div>
       <Section title="Projects">
         <ApiStatus status={status} error={error} />

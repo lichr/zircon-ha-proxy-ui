@@ -11,3 +11,4 @@ export * from './row';
 export * from './section';
 export * from './side-section';
 export * from './table';
+export * from './top-bar';

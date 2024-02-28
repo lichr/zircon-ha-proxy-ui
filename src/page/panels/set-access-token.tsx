@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ApiStatus, useApiPut, usePageCore } from '../../services';
-import { Link, P, PanelBase, Row, mono, textFields, vbox } from '../../ui';
+import { Link, P, PanelBase, Row, mono, textControl, vbox } from '../../ui';
 
 interface IFormData {
   accessToken: string;
@@ -74,7 +74,7 @@ export function SetAccessToken(): JSX.Element {
                 css={{ width: '600px' }}
                 variant='outlined'
                 disabled={isBusy}
-                {...textFields('access token', field, fieldState)}
+                {...textControl('access token', field, fieldState)}
               />
             )
           }
