@@ -8,7 +8,7 @@ export function useApiPut<T>(
   config?: AxiosRequestConfig
 ): IApiInvoke<T, any, (data: any)=>void> {
   const core = usePageCore();
-  const apiBaseUrl = core.config.apiBaseUrl;
+  const baseUrl = core.config.baseUrl;
   const [state, setState] = useState<IApiState<T, any>>({
     data: null,
     result: null,
@@ -32,7 +32,7 @@ export function useApiPut<T>(
     () => {
       if (state.status === 'start') {
         axios
-          .put<T>(`${apiBaseUrl}/${url}`, state.data, config)
+          .put<T>(`${baseUrl}/${url}`, state.data, config)
           .then((response) => {
             setState({
               data: null,
@@ -57,7 +57,7 @@ export function useApiPut<T>(
         });
       }
     },
-    [url, config, state.status, apiBaseUrl, state.data]
+    [url, config, state.status, baseUrl, state.data]
   );
 
   return { start, state };

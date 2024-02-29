@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import MathCompass from 'mdi-material-ui/MathCompass';
-import { IProjectInfo } from '../../../services';
+import { IProjectInfo, usePageCore } from '../../../services';
 import { ActionLink, B, FeatureSection, More, P, SG } from '../../../ui';
 
 export function DesignerSection(
@@ -9,6 +9,7 @@ export function DesignerSection(
   }
 ): JSX.Element {
   const { projectInfo } = props;
+  const core = usePageCore();
 
   return (
     <FeatureSection
@@ -16,7 +17,15 @@ export function DesignerSection(
       title="Designer"
     >
       <P>
-        <ActionLink external title="Open Designer" onClick={() => { }} />
+        <ActionLink
+          external
+          title="Open Designer"
+          onClick={
+            () => {
+              window.open(`${core.config.baseUrl}/active/designer/`, '_blank');
+            }
+          }
+        />
       </P>
       <SG>
         <P><B>Designer</B> is an application that allows users to <B>edit</B> home plans</P>

@@ -15,7 +15,7 @@ export function SetAccessToken(): JSX.Element {
     core.update((state) => { state.currentPanel = 'project'; });
   }
 
-  const { start, state: { result, status, error } } = useApiPut('access_token');
+  const { start, state: { result, status, error } } = useApiPut('proxy/api/access_token');
   const isBusy = status === 'pending' || status === 'start';
   const form = useForm<IFormData>({
     mode: 'all',

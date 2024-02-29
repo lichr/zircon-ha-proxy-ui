@@ -9,7 +9,7 @@ import { ViewersSection } from './viewers-sections';
 
 export function ProjectSection(): JSX.Element {
   const core = usePageCore();
-  const { state: { status, error, result: projectInfo } } = useApiGet<IProjectInfo>('active_project_info');
+  const { state: { status, error, result: projectInfo } } = useApiGet<IProjectInfo>('proxy/api/active_project_info');
 
   let projectPart = null;
   let Icon = Help;

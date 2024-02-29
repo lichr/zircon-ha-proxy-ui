@@ -8,7 +8,7 @@ export function useApiGet<R>(
   config?: AxiosRequestConfig
 ): IApiInvoke<any, R> {
   const core = usePageCore();
-  const apiBaseUrl = core.config.apiBaseUrl;
+  const baseUrl = core.config.baseUrl;
   const [state, setState] = useState<IApiState<any, R>>({
     data: null,
     result: null,
@@ -32,7 +32,7 @@ export function useApiGet<R>(
     () => {
       if (state.status === 'start') {
         axios
-          .get<R>(`${apiBaseUrl}/${url}`, config)
+          .get<R>(`${baseUrl}/${url}`, config)
           .then((response) => {
             setState({
               data: null,
@@ -57,7 +57,7 @@ export function useApiGet<R>(
         });
       }
     },
-    [url, config, state.status, apiBaseUrl]
+    [url, config, state.status, baseUrl]
   );
 
   return { start, state };

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 export interface IPageConfig {
-  apiBaseUrl: string;
+  baseUrl: string;
 }
 
 export const PageConfigContext = createContext<IPageConfig | null>(null);

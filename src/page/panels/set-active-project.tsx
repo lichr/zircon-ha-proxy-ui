@@ -13,7 +13,7 @@ function SetActiveButton(
   const { data, onSave } = props;
   const theme = useTheme();
   const color = theme.palette.primary.main;
-  const { start, state: { status, error } } = useApiPut('active_project');
+  const { start, state: { status, error } } = useApiPut('proxy/api/active_project');
 
   useEffect(
     () => {
@@ -45,7 +45,7 @@ export function SetActiveProject(): JSX.Element {
   const theme = useTheme();
   const color = theme.palette.primary.main;
   const core = usePageCore();
-  const { state: { result, status, error } } = useApiGet<any[]>('projects');
+  const { state: { result, status, error } } = useApiGet<any[]>('proxy/api/projects');
 
   let content;
   if (result) {

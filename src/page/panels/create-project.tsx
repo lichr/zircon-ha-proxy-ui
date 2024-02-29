@@ -23,7 +23,7 @@ export function CreateProject(): JSX.Element {
   const defaultGroup = _.first(_.keys(groups));
 
   // api invoke to create new project
-  const { start, state: { result, status, error } } = useApiPut('project');
+  const { start, state: { result, status, error } } = useApiPut('proxy/api/project');
   const isBusy = status === 'pending' || status === 'start';
 
   // initialize form

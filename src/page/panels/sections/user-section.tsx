@@ -6,7 +6,7 @@ import { ActionLink, B, FeatureSection, Link, P, Row, SG } from '../../../ui';
 import { ProjectSection } from './project-section';
 
 export function UserSection(): JSX.Element {
-  const { state: { status, error, result: userInfo } } = useApiGet<IUserInfo>('user_info');
+  const { state: { status, error, result: userInfo } } = useApiGet<IUserInfo>('proxy/api/user_info');
   const theme = useTheme();
   const color = theme.palette.primary.main;
   const core = usePageCore();
