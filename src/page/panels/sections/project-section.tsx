@@ -16,7 +16,7 @@ export function ProjectSection(): JSX.Element {
   let next = null;
 
   if (projectInfo) {
-    const { groupId, projectId, onlineBranch, localBranch, name, updateTime } = projectInfo;
+    const { groupId, projectId, localOnly, onlineBranch, localBranch, name, updateTime } = projectInfo;
     Icon = onlineBranch ? CloudOutline : Harddisk;
     projectPart = (
       <>
@@ -26,12 +26,7 @@ export function ProjectSection(): JSX.Element {
           </P>
           <Row css={{ gap: '36px' }}>
             <P>
-              <B>Online Branch:</B> {onlineBranch ? 'YES' : 'NO'}
-              <ActionLink go css={{ margin: '0 12px' }} title="Delete" />
-            </P>
-            <P>
-              <B>Local Branch:</B> {localBranch ? 'YES' : 'NO'}
-              <ActionLink go css={{ margin: '0 12px' }} title="Pull" />
+              <B>Data Store :</B> {localOnly ? 'Local Only' : 'Local & Cloud'}
             </P>
           </Row>
           <More>
@@ -72,18 +67,39 @@ export function ProjectSection(): JSX.Element {
       >
         <ApiStatus status={status} error={error} hideError />
         <Row>
-          <ActionLink
-            go
-            title="Choose Active Project"
-            onClick={
-              () => core.update((state) => { state.currentPanel = 'set-active-project' })
-            }
-          />
+          {
+            projectInfo && (
+              <ActionLink
+                go
+                title="Edit Active Project"
+                onClick={
+                  () => core.update(
+                    (state) => {
+                      state.currentPanel = {
+                        id: 'edit-project',
+                        config: {
+                          groupId: projectInfo.groupId,
+                          projectId: projectInfo.projectId
+                        }
+                      };
+                    }
+                  )
+                }
+              />
+            )
+          }
           <ActionLink
             go
             title="Create New Project"
             onClick={
-              () => core.update((state) => { state.currentPanel = 'create-project' })
+              () => core.update((state) => { state.currentPanel = { id: 'create-project' }})
+            }
+          />
+          <ActionLink
+            go
+            title="Manage Projects"
+            onClick={
+              () => core.update((state) => { state.currentPanel = { id: 'manage-projects' }})
             }
           />
         </Row>

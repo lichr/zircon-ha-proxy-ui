@@ -12,7 +12,7 @@ interface IFormData {
 export function SetAccessToken(): JSX.Element {
   const core = usePageCore();
   const handleGoBack = () => {
-    core.update((state) => { state.currentPanel = 'project'; });
+    core.update((state) => { state.currentPanel = { id: 'project' }; });
   }
 
   const { start, state: { result, status, error } } = useApiPut('proxy/api/access_token');
@@ -33,7 +33,7 @@ export function SetAccessToken(): JSX.Element {
   useEffect(
     () => {
       if (status === 'ok') {
-        core.update((state) => { state.currentPanel = 'project'; });
+        core.update((state) => { state.currentPanel = { id: 'project' }; });
       }
     },
     [core, status]
@@ -44,7 +44,7 @@ export function SetAccessToken(): JSX.Element {
       title="Set Active Project"
       returnDisabled={isBusy}
       onReturn={
-        () => core.update((state) => { state.currentPanel = 'project' })
+        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
       }
     >
       <div css={[vbox, { gap: '16px' }]}>

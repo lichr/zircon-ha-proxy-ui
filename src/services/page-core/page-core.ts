@@ -15,7 +15,7 @@ export class PageCore {
     this.state = {
       userInfo: null,
       currentTab: 'project',
-      currentPanel: 'project',
+      currentPanel: { id: 'project' },
       dialog: null,
       panels: {
         project: {},

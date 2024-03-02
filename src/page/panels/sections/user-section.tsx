@@ -27,7 +27,7 @@ export function UserSection(): JSX.Element {
   if (userInfo) {
     const { user, tokenId } = userInfo;
     const handleUpdateToken = () => {
-      core.update((state) => { state.currentPanel = 'set-access-token'; });
+      core.update((state) => { state.currentPanel ={ id: 'set-access-token' }; });
     }
     if (tokenId) {
       tokenPart = (

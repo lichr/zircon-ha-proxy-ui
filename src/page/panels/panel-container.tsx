@@ -1,25 +1,29 @@
 import { ReactElement } from 'react';
 import { usePageState } from '../../services';
 import { CreateProject } from './create-project';
+import { EditProject } from './edit-project';
 import { LocalBranch } from './local-branch';
+import { ManageProjects } from './manage-projects';
 import { OnlineBranch } from './online-branch';
 import { ProjectPanel } from './project-panel';
 import { SetAccessToken } from './set-access-token';
-import { SetActiveProject } from './set-active-project';
 
 export function PanelContainer(): ReactElement | null {
-  const currentPanel = usePageState(state => state.currentPanel);
-  if (currentPanel === 'project') {
+  const { id, config } = usePageState(state => state.currentPanel);
+  if (id === 'project') {
     return (<ProjectPanel />);
-  } else if (currentPanel === 'online-branch') {
+  } else if (id === 'online-branch') {
     return (<OnlineBranch />);
-  } else if (currentPanel === 'local-branch') {
+  } else if (id === 'local-branch') {
     return (<LocalBranch />);
-  } else if (currentPanel === 'set-active-project') {
-    return (<SetActiveProject />);
-  } else if (currentPanel === 'create-project') {
+  } else if (id === 'manage-projects') {
+    return (<ManageProjects />);
+  } else if (id === 'create-project') {
     return (<CreateProject />);
-  } else if (currentPanel === 'set-access-token') {
+  } else if (id === 'edit-project') {
+    const { groupId, projectId } = config;
+    return (<EditProject groupId={groupId} projectId={projectId} />);
+  } else if (id === 'set-access-token') {
     return (<SetAccessToken />);
   }
   return null;

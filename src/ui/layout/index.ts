@@ -1,5 +1,6 @@
 export * from './action-link';
 export * from './b';
+export * from './chip';
 export * from './feature-section';
 export * from './link';
 export * from './more';

@@ -9,7 +9,7 @@ export function LocalBranch(): JSX.Element {
     <PanelBase
       title="Local Branch"
       onReturn={
-        () => core.update((state) => { state.currentPanel = 'project' })
+        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
       }
     >
       <PanelSection title="Local Branch">

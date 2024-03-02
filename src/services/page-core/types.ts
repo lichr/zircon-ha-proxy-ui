@@ -39,7 +39,10 @@ export interface IPageState {
   userInfo: IUserInfo | null;
   dialog: IDialog | null;
   currentTab: string;
-  currentPanel: string;
+  currentPanel: {
+    id: string,
+    config?: any
+  };
   panels: {
     project: any;
     help: any;

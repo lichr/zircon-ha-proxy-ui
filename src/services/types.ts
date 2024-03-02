@@ -15,11 +15,13 @@ export interface IUserInfo {
 }
 
 export interface IProjectInfo {
-  groupId: string;
   projectId: string;
+  groupId: string;
+  active: boolean;
+  localOnly: boolean;
   onlineBranch: boolean;
   localBranch: boolean;
-  name: string | null;
-  updateTime: string | null;
+  name: string;
+  updateTime: string;
 }
 

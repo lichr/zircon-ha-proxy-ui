@@ -9,7 +9,7 @@ export function OnlineBranch(): JSX.Element {
     <PanelBase
       title="Online Branch"
       onReturn={
-        () => core.update((state) => { state.currentPanel = 'project' })
+        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
       }
     >
       <PanelSection title="Online Branch">
