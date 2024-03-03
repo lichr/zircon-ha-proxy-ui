@@ -71,17 +71,13 @@ export function ProjectSection(): JSX.Element {
             projectInfo && (
               <ActionLink
                 go
-                title="Edit Active Project"
+                title="Edit"
                 onClick={
-                  () => core.update(
-                    (state) => {
-                      state.currentPanel = {
-                        id: 'edit-project',
-                        config: {
+                  () => core.go(
+                    'edit-project',
+                    {
                           groupId: projectInfo.groupId,
                           projectId: projectInfo.projectId
-                        }
-                      };
                     }
                   )
                 }
@@ -90,16 +86,16 @@ export function ProjectSection(): JSX.Element {
           }
           <ActionLink
             go
-            title="Create New Project"
+            title="Create Project"
             onClick={
-              () => core.update((state) => { state.currentPanel = { id: 'create-project' }})
+              () => core.go('create-project')
             }
           />
           <ActionLink
             go
             title="Manage Projects"
             onClick={
-              () => core.update((state) => { state.currentPanel = { id: 'manage-projects' }})
+              () => core.go('manage-projects')
             }
           />
         </Row>

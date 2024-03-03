@@ -1,8 +1,7 @@
-import { Button, CircularProgress, useTheme } from '@mui/material';
-import CheckCircle from 'mdi-material-ui/CheckCircle';
-import { Fragment, ReactElement, useEffect } from 'react';
+import { CircularProgress, useTheme } from '@mui/material';
+import { ReactElement, useEffect } from 'react';
 import { ApiStatus, IProjectInfo, useApiGet, useApiPut, usePageCore } from '../../services';
-import { ActionLink, Chip, P, PanelBase, PanelSection, Row, Section, Table, click, hbox, mono } from '../../ui';
+import { ActionLink, Chip, PanelBase, Row, Section, Table, mono } from '../../ui';
 
 function SetActiveButton(
   props: {
@@ -43,8 +42,6 @@ function SetActiveButton(
 
 export function ProjectRow(props: { project: IProjectInfo }) {
   const { project: { groupId, projectId, name, active, localOnly } } = props;
-  const theme = useTheme();
-  const color = theme.palette.primary.main;
   const core = usePageCore();
 
   const features: ReactElement[] = [];
@@ -54,7 +51,7 @@ export function ProjectRow(props: { project: IProjectInfo }) {
       go
       title="Edit"
       onClick={
-        () => core.update((state) => { state.currentPanel = { id: 'edit-project', config: { groupId, projectId } }; })
+        () => core.go('edit-project', { groupId, projectId })
       }
     />
   ];
@@ -67,6 +64,16 @@ export function ProjectRow(props: { project: IProjectInfo }) {
         key="set-active"
         data={{ groupId, projectId }}
         onSave={() => window.location.reload()}
+      />
+    );
+    actions.push(
+      <ActionLink
+        key={projectId}
+        go
+        title="Delete"
+        onClick={
+          () => core.go('delete-project', { groupId, projectId })
+        }
       />
     );
   }
@@ -123,16 +130,13 @@ export function ManageProjects(): JSX.Element {
   return (
     <PanelBase
       title="Manage Projects"
-      onReturn={
-        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
-      }
     >
       <div css={{ padding: '0 0 16px 0' }}>
         <ActionLink
           go
-          title="Create New Project"
+          title="Create Project"
           onClick={
-            () => core.update((state) => { state.currentPanel = { id: 'create-project' }; })
+            () => core.go('create-project')
           }
         />
       </div>

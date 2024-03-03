@@ -14,13 +14,8 @@ export class PageCore {
     this.config = config;
     this.state = {
       userInfo: null,
-      currentTab: 'project',
-      currentPanel: { id: 'project' },
-      dialog: null,
-      panels: {
-        project: {},
-        help: {}
-      }
+      panels: [{ id: 'project' }],
+      dialog: null
     };
   }
 
@@ -30,6 +25,29 @@ export class PageCore {
     if (next !== old) {
       this.state = next;
       this.emitter.emit('state-update', next, old);
+    }
+  }
+
+  go(id: string, config?: any) {
+    this.update((state) => {
+      state.panels.push({ id, config });
+    });
+  }
+
+  switch(id: string, config?: any) {
+    if (this.state.panels.length > 1) {
+      this.update((state) => {
+        state.panels.pop();
+        state.panels.push({ id, config });
+      });
+    }
+  }
+
+  goBack() {
+    if (this.state.panels.length > 1) {
+      this.update((state) => {
+        state.panels.pop();
+      });
     }
   }
 }

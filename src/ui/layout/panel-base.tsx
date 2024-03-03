@@ -1,19 +1,21 @@
-import { Button, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import ArrowLeft from 'mdi-material-ui/ArrowLeft';
-import { center, click, clickDisabled, hbox, row, vbox } from '../static-styles';
+import { usePageCore } from '../../services';
+import { center, click, clickDisabled, vbox } from '../static-styles';
 
 export function PanelBase(
   props: {
     title: string;
     returnDisabled?: boolean;
-    onReturn?: () => void;
     className?: string,
     children?: React.ReactNode
   }
 ): JSX.Element {
-  const { title, returnDisabled, onReturn, className, children } = props;
+  const { title, returnDisabled, className, children } = props;
   const theme = useTheme();
   const color = returnDisabled ? '#666' : theme.palette.primary.main;
+  const core = usePageCore();
+  const canGoBack = core.state.panels.length > 1;
 
   return (
     <div
@@ -34,7 +36,7 @@ export function PanelBase(
       ]}
     >
       {
-        onReturn && (
+        canGoBack && (
           <div
             css={[
               center,
@@ -46,7 +48,7 @@ export function PanelBase(
                 borderRadius: '50%'
               }
             ]}
-            onClick={returnDisabled ? undefined : onReturn}
+            onClick={returnDisabled ? undefined : () => core.goBack()}
           >
             <ArrowLeft css={{ color, fontSize: '22px' }} />
           </div>

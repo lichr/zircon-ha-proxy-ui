@@ -10,9 +10,8 @@ export function EditProject(
   }
 ): JSX.Element {
   const { groupId, projectId } = props;
-  const core = usePageCore();
 
-  const { state: { result, status, error } } = useApiGet<IProjectInfo>(`proxy/api/projects/${groupId}/${projectId}`);
+  const { state: { result, status, error } } = useApiGet<IProjectInfo>(`proxy/api/groups/${groupId}/projects/${projectId}`);
   const isBusy = status === 'pending' || status === 'start';
 
   if (result) {
@@ -25,9 +24,6 @@ export function EditProject(
     <PanelBase
       title="Edit Project"
       returnDisabled={isBusy}
-      onReturn={
-        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
-      }
     >
     <ApiStatus status={status} error={error} />
     </PanelBase>

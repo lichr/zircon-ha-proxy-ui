@@ -1,15 +1,15 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, Switch, TextField } from '@mui/material';
+import { Button, MenuItem, Switch, TextField } from '@mui/material';
 import _ from 'lodash';
 import { useEffect } from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { ApiStatus, IProjectInfo, useApiPut, usePageCore, usePageState } from '../../../services';
-import { B, Link, P, PanelBase, Row, SG, SelectFormField, mono, switchControl, textControl, vbox } from '../../../ui';
+import { B, Note, P, PanelBase, Row, SG, SelectFormField, mono, switchControl, textControl, vbox } from '../../../ui';
 
 interface IProjectEditorFormData {
-  id: string | null;
+  projectId: string | null;
   groupId: string | null;
   name: string;
-  setActive: boolean;
+  active: boolean;
   localOnly: boolean;
 }
 
@@ -21,9 +21,6 @@ export function ProjectEditor(
   const { project } = props;
   const createMode = !project;
   const core = usePageCore();
-  const handleGoBack = () => {
-    core.update((state) => { state.currentPanel = { id: 'project' }; });
-  }
 
   // get groups
   const groups = usePageState((state) => state.userInfo?.groups ?? {});
@@ -36,19 +33,21 @@ export function ProjectEditor(
   // initialize form
   const form = useForm<IProjectEditorFormData>({
     mode: 'onTouched',
-    defaultValues: project ?{
-      id: project.projectId,
+    defaultValues: project ? {
+      projectId: project.projectId,
       groupId: project.groupId,
       name: project.name,
-      setActive: project.active,
+      active: project.active,
       localOnly: project.localOnly
     }: {
       groupId: defaultGroup,
       name: 'New Project',
-      setActive: true,
+      active: true,
       localOnly: false
     }
   });
+
+  const localOnly = form.watch('localOnly');
 
   const onSubmit = form.handleSubmit(
     async (data) => {
@@ -59,19 +58,16 @@ export function ProjectEditor(
   useEffect(
     () => {
       if (status === 'ok') {
-        core.update((state) => { state.currentPanel = { id: 'project' }; });
+        core.goBack();
       }
     },
     [core, status]
-  )
+  );
 
   return (
     <PanelBase
-      title={createMode ? 'Create New Project' : 'Edit Project'}
+      title={createMode ? 'Create Project' : 'Edit Project'}
       returnDisabled={isBusy}
-      onReturn={
-        () => core.update((state) => { state.currentPanel = { id: 'project' }; })
-      }
     >
       <div css={[vbox, { gap: '16px' }]}>
         <P>
@@ -125,11 +121,11 @@ export function ProjectEditor(
           />
         </Row>
         {
-          createMode && (
+          (createMode || !project.active) && (
             <Row>
               <div>Set as Active Project </div>
               <Controller
-                name="setActive"
+                name="active"
                 control={form.control}
                 render={
                   ({ field }) => (
@@ -160,7 +156,22 @@ export function ProjectEditor(
               }
             />
           </Row>
-
+          {
+            project && project.localOnly !== localOnly && localOnly === false && (
+              <Note warn>
+                <P>You are removing the project&apos;s <B>local only mode</B>.</P>
+                <P>This will <B>allow</B> a copy of your home plan data to be kept in cloud data store.</P>
+              </Note>
+            )
+          }
+          {
+            project && project.localOnly !== localOnly && localOnly === true && (
+              <Note warn>
+                <P>You are changing the project to <B>local only mode</B>.</P>
+                <P>This will <B>remove</B> home plan data from the cloud data store.</P>
+              </Note>
+            )
+          }
           <SG>
             <P>In <B>Local Only</B> mode:</P>
             <P li>You home plan data will <B>never leave</B> your local network</P>
@@ -170,7 +181,7 @@ export function ProjectEditor(
         </SG>
 
         <Row>
-          <Button size="small" variant="outlined" disabled={isBusy} onClick={handleGoBack}>Cancel</Button>
+          <Button size="small" variant="outlined" disabled={isBusy} onClick={() => core.goBack()}>Cancel</Button>
           <Button size="small" variant="contained" disabled={isBusy || !form.formState.isValid} onClick={onSubmit}>{createMode ? 'Create Project' : 'Update Project'}</Button>
         </Row>
         <ApiStatus status={status} error={error} />

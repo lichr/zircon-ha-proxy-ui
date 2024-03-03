@@ -8,7 +8,7 @@ export interface IApiState<T=any,R=any> {
   status: ApiInvokeStatus;
   error: any;
 }
-export interface IApiInvoke<T=any,R=any, F=()=>void> {
+export interface IApiInvoke<T, R, F> {
   start: F;
   state: IApiState<T,R>;
 }
@@ -35,16 +35,13 @@ export interface IProjectPanel {
   project: IProjectEntry | null;
 }
 
+export interface IPanelRef {
+  id: string;
+  config?: any;
+}
+
 export interface IPageState {
   userInfo: IUserInfo | null;
   dialog: IDialog | null;
-  currentTab: string;
-  currentPanel: {
-    id: string,
-    config?: any
-  };
-  panels: {
-    project: any;
-    help: any;
-  }
+  panels: IPanelRef[];
 }
