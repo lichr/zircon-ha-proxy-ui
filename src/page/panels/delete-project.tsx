@@ -130,7 +130,9 @@ export function DeleteProject(
 ): JSX.Element {
   const { groupId, projectId } = props;
 
-  const { state: { result, status, error } } = useApiGet<IProjectInfo>(`proxy/api/projects/${groupId}/${projectId}`);
+  const { state: { result, status, error } } = useApiGet<IProjectInfo>(
+    `proxy/api/groups/${groupId}/projects/${projectId}`
+  );
   const isBusy = status === 'pending' || status === 'start';
 
   if (result) {
